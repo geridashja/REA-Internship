@@ -5,9 +5,15 @@
     </head>
     <body>
         <h1>Home</h1>
-        <p>VK</p>
+        <p><bold>Get tweets</bold></p>
         <form action="/get_tweets">
             <button id='stat-btn' class="btn" href="{% url 'get_tweets' %}">Get_Tweets</button>
+        </form>
+        <br>
+        <br>
+        <p><bold>Show Tweets</bold></p>
+        <form action="/load">
+            <button id='stat-btn' class="btn" href="{% url 'load' %}">Show Tweets</button>
         </form>
     </body>
 </html>
