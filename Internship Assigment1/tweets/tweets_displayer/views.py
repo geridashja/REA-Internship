@@ -13,7 +13,7 @@ import pprint
 from bs4 import BeautifulSoup
 import re
 import csv
-
+import json
 
 # Create your views here.
 def index(request):
@@ -126,15 +126,19 @@ def get_tweets(request):
 
         #save to csv
         with open('tweets.csv', 'w', newline='', encoding='utf-8') as f:
-            header = ['Author', 'Handle of Author', 'Date', 'Tweet', 'Likes', 'Retweets', 'Discussions']
+            header = ['Author', 'Handle', 'Date', 'Tweet', 'Likes', 'Retweets', 'Discussions']
             writer = csv.writer(f)
             writer.writerow(header)
             writer.writerows(data)
+    return render(request, 'home.html')
 
 def load(request):
-    df = pd.read_csv("tableview/static/csv/20_Startups.csv")
-    #'tableview/static/csv/20_Startups.csv' is the django 
-    # directory where csv file exist.
-    # Manipulate DataFrame using to_html() function
-    geeks_object = df.to_html()
-    return HttpResponse(geeks_object)
+    df = pd.read_csv(r"C:\Users\shqip\Desktop\REA-Internship\Internship Assigment1\tweets\tweets.csv")
+
+    json_records = df.reset_index().to_json(orient ='records')
+    data = []
+    data = json.loads(json_records)
+
+    context = {'d': data}
+    tweets = df.to_html()
+    return render(request, 'table.html', context)
