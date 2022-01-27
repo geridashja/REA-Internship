@@ -130,7 +130,7 @@ def get_tweets(request):
             writer = csv.writer(f)
             writer.writerow(header)
             writer.writerows(data)
-            dataFrame = pd.read_csv(r"C:\Users\shqip\Desktop\REA-Internship\Internship Assigment1\tweets.csv")
+            dataFrame = pd.read_csv(r"tweets.csv")
             
             #sort based on 4 columns
             dataFrame.sort_values(["Retweets","Likes", "Discussions", "Date"],axis=0, ascending=False,inplace=True)
@@ -144,11 +144,9 @@ def get_tweets(request):
 
 def load(request):
     df = pd.read_csv(r"C:\Users\shqip\Desktop\REA-Internship\Internship Assigment1\tweets\tweets.csv")
-
     json_records = df.reset_index().to_json(orient ='records')
     data = []
     data = json.loads(json_records)
-
     context = {'d': data}
     tweets = df.to_html()
     return render(request, 'table.html', context)
