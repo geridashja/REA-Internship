@@ -124,12 +124,22 @@ def get_tweets(request):
         driver.close()
 
 
-        #save to csv
+        #save to csv, sort and drop duplicates
         with open('tweets.csv', 'w', newline='', encoding='utf-8') as f:
-            header = ['Author', 'Handle', 'Date', 'Tweet', 'Likes', 'Retweets', 'Discussions']
+            header = ['Author', 'Handle of Author', 'Date', 'Tweet', 'Likes', 'Retweets', 'Discussions']
             writer = csv.writer(f)
             writer.writerow(header)
             writer.writerows(data)
+            dataFrame = pd.read_csv(r"C:\Users\shqip\Desktop\REA-Internship\Internship Assigment1\tweets.csv")
+            
+            #sort based on 4 columns
+            dataFrame.sort_values(["Retweets","Likes", "Discussions", "Date"],axis=0, ascending=False,inplace=True)
+            
+            #drop duplicate rows
+            dataFrame.drop_duplicates(subset=None, inplace=True) 
+            dataFrame.to_csv('tweets.csv', encoding='utf-8',index = False)
+
+        #sort based on 
     return render(request, 'home.html')
 
 def load(request):
