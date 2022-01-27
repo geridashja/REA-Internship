@@ -5,13 +5,8 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import chromedriver_autoinstaller #used to auto-install chromedriver if current version of chrome is different
 import time
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.common.by import By
-import pprint
-from bs4 import BeautifulSoup
-import re
 import csv
 import json
 
@@ -19,17 +14,16 @@ import json
 def index(request):
     return render(request, 'home.html')
 
-def get_tweet_data(tweet):
+def get_tweet_data(tweet,request):
     username = tweet.find_element_by_xpath('.//span').text
     try:
         handle = tweet.find_element_by_xpath('.//span[contains(text(), "@")]').text
     except NoSuchElementException:
-        return
+        return render(request, 'home.html')
     try:
         postdate = tweet.find_element_by_xpath('.//time').get_attribute('datetime')
     except NoSuchElementException:
-        return
-    
+        return render(request, 'home.html')
     comment = tweet.find_element_by_xpath('.//div[2]/div[2]/div[1]').text
     responding = tweet.find_element_by_xpath('.//div[2]/div[2]/div[2]').text
     text = comment + responding
@@ -95,7 +89,7 @@ def get_tweets(request):
         for i in range(5):
             page_cards = driver.find_elements_by_xpath('//article[@data-testid="tweet"]')
             for card in page_cards[-15:]:
-                tweet = get_tweet_data(card)
+                tweet = get_tweet_data(card,request)
                 data.append(tweet)
                     
             scroll_attempt = 0
@@ -116,24 +110,25 @@ def get_tweets(request):
                     break
         driver.close()
 
-
-        #save to csv, sort and drop duplicates
-        with open('tweets.csv', 'w', newline='', encoding='utf-8') as f:
-            header = ['Author', 'Handle of Author', 'Date', 'Tweet', 'Likes', 'Retweets', 'Discussions']
-            writer = csv.writer(f)
-            writer.writerow(header)
-            writer.writerows(data)
-            dataFrame = pd.read_csv(r"tweets.csv")
-            
-            #sort based on 4 columns
-            dataFrame.sort_values(["Retweets","Likes", "Discussions", "Date"],axis=0, ascending=False,inplace=True)
-            
-            #drop duplicate rows
-            dataFrame.drop_duplicates(subset=None, inplace=True) 
-            dataFrame.to_csv('tweets.csv', encoding='utf-8',index = False)
-
-        #sort based on 
+        saving(data) 
     return render(request, 'show.html')
+
+
+#save to csv, sort and drop duplicates
+def saving(data):
+    with open('tweets.csv', 'w', newline='', encoding='utf-8') as f:
+        header = ['Author', 'Handle of Author', 'Date', 'Tweet', 'Likes', 'Retweets', 'Discussions']
+        writer = csv.writer(f)
+        writer.writerow(header)
+        writer.writerows(data)
+        dataFrame = pd.read_csv(r"tweets.csv")
+         
+        #sort based on 4 columns
+        dataFrame.sort_values(["Retweets","Likes", "Discussions", "Date"],axis=0, ascending=False,inplace=True)
+        
+        #drop duplicate rows
+        dataFrame.drop_duplicates(subset=None, inplace=True) 
+        dataFrame.to_csv('tweets.csv', encoding='utf-8',index = False)
 
 def load(request):
     df = pd.read_csv(r"C:\Users\shqip\Desktop\REA-Internship\Internship Assigment1\tweets\tweets.csv")
@@ -143,3 +138,4 @@ def load(request):
     context = {'d': data}
     tweets = df.to_html()
     return render(request, 'table.html', context)
+

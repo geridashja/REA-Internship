@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <head>
+            <title>Error 404</title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> 
+          </head>
+    </head>
+    <body>
+        <div class="container">
+            <h2 class="text-center"><u>Error 404</u></h2><br> 
+        </div>
+        <form action="/index">
+            <div class="form-group">
+              <label>Something went wrong. Go to the Home Page</label><br>
+              <button type="submit" class="btn btn-primary" href="{% url 'index' %}">Home page</button>
+            </div>
+          </form>
+    </body>
+</html>
