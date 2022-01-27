@@ -2,7 +2,7 @@
 <html>
     <head>
         <head>
-            <title>Get tweets</title>
+            <title>Show Tweets</title>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> 
@@ -10,13 +10,12 @@
     </head>
     <body>
         <div class="container">
-            <h2 class="text-center"><u>Get tweets</u></h2><br> 
+            <h2 class="text-center"><u>Show Tweets</u></h2><br> 
         </div>
-        <form action="/get_tweets">
+        <form action="/load">
             <div class="form-group">
-              <label>Generate tweets CSV file</label><br>
-              <button type="submit" class="btn btn-primary" href="{% url 'get_tweets' %}">Generate</button>
-              <small id="helper" class="form-text text-muted">The file generated will be shown in your project folder</small>
+              <label>Table of tweets</label><br>
+              <button type="submit" class="btn btn-primary" href="{% url 'load' %}">Show table</button>
             </div>
           </form>
     </body>

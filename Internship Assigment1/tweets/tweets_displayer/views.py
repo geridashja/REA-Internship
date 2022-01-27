@@ -84,14 +84,11 @@ def get_tweets(request):
         input_search.send_keys(Keys.ENTER)
         time.sleep(2)
 
-        #latest 
         driver.find_element_by_xpath('//*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/div[1]/div[2]/nav/div/div[2]/div/div[2]/a').click()
 
         data = []
-        tweet_ids = set()
         last_position = driver.execute_script("return window.pageYOffset;")
         scrolling = True
-
         i = 0
         #SCRAPED 5 PAGES FOR TESTS
         #while scrolling:
@@ -109,18 +106,14 @@ def get_tweets(request):
                 curr_position = driver.execute_script("return window.pageYOffset;")
                 if last_position == curr_position:
                     scroll_attempt += 1
-                    
-                    #end of scroll region
                     if scroll_attempt >= 3:
                         scrolling = False
                         break
                     else:
-                        time.sleep(2) #attempt another scroll
+                        time.sleep(2) 
                 else:
                     last_position = curr_position
                     break
-
-        # close the web driver
         driver.close()
 
 
@@ -140,7 +133,7 @@ def get_tweets(request):
             dataFrame.to_csv('tweets.csv', encoding='utf-8',index = False)
 
         #sort based on 
-    return render(request, 'home.html')
+    return render(request, 'show.html')
 
 def load(request):
     df = pd.read_csv(r"C:\Users\shqip\Desktop\REA-Internship\Internship Assigment1\tweets\tweets.csv")
