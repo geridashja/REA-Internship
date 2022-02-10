@@ -9,11 +9,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/registration")
 public class RegistrationController {
     @Autowired
     todouserrepo userRepository;
+
+    //postmap testing purposes
+    @GetMapping("/merri")
+    public List<todouser> merri(){
+        List<todouser> users = userRepository.findAll();
+        return  users;
+    }
 
     @ModelAttribute("todouser")
     public todouser todouser()
@@ -28,7 +37,7 @@ public class RegistrationController {
     }
 
     @PostMapping
-    public String registerUserAccount(@ModelAttribute("user") todouser newUser)
+    public String registerUserAccount(@ModelAttribute("todouser") todouser newUser)
     {
         userRepository.save(newUser);
         return "redirect:/registration?success";
