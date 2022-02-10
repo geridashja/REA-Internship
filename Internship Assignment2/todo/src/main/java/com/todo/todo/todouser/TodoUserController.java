@@ -1,5 +1,7 @@
 package com.todo.todo.todouser;
 
+import com.todo.todo.entity.todouser;
+import com.todo.todo.repository.todouserrepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,13 +12,6 @@ import java.util.List;
 public class TodoUserController {
     @Autowired
     todouserrepo userRepository;
-
-
-    @GetMapping("/home")
-    public List<todouser> sendhome(){
-        List<todouser> users = userRepository.findAll();
-        return users;
-    }
 
     @CrossOrigin()
     @PostMapping("/users/register")

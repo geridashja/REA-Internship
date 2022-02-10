@@ -1,6 +1,8 @@
-package com.todo.todo.todouser;
+package com.todo.todo.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +16,9 @@ public class todouser {
 
     public todouser() {
     }
+
+    @OneToMany(cascade = CascadeType.ALL) //Because one user can have more than one todo
+    private List<Todo> todos_foruser = new ArrayList<Todo>();
 
     public todouser(String username, String password, boolean loggedIn) {
         this.username = username;
