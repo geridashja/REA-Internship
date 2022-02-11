@@ -38,7 +38,6 @@ public class TodoUserController {
 
         for (todouser other : users) {
             if (other.equals(user)) {
-                user.setLoggedIn(true);
                 userRepository.save(user);
                 return status.SUCCESS;
             }
@@ -53,7 +52,6 @@ public class TodoUserController {
 
         for (todouser other : users) {
             if (other.equals(user)) {
-                user.setLoggedIn(false);
                 userRepository.save(user);
                 return status.SUCCESS;
             }

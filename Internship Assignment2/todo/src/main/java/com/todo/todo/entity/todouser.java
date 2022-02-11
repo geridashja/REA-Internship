@@ -9,10 +9,9 @@ import java.util.Objects;
 @Table(name = "usertable")
 public class todouser {
 
-    private @Id @GeneratedValue long id;
+    private @Id @GeneratedValue int user_id;
     private String username;
     private String password;
-    private boolean loggedIn;
 
     public todouser() {
     }
@@ -20,18 +19,17 @@ public class todouser {
     @OneToMany(cascade = CascadeType.ALL) //Because one user can have more than one todo
     private List<Todo> todos_foruser = new ArrayList<Todo>();
 
-    public todouser(String username, String password, boolean loggedIn) {
+    public todouser(String username, String password) {
         this.username = username;
         this.password = password;
-        this.loggedIn = loggedIn;
     }
 
     public long getId() {
-        return id;
+        return user_id;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setId(int id) {
+        this.user_id = user_id;
     }
 
     public String getUsername() {
@@ -50,13 +48,6 @@ public class todouser {
         this.password = password;
     }
 
-    public boolean isLoggedIn() {
-        return loggedIn;
-    }
-
-    public void setLoggedIn(boolean loggedIn) {
-        this.loggedIn = loggedIn;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -69,7 +60,7 @@ public class todouser {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, loggedIn);
+        return Objects.hash(user_id, username, password);
     }
 
 }

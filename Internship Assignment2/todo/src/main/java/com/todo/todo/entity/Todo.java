@@ -1,18 +1,14 @@
 package com.todo.todo.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "todostable")
 public class Todo {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
 
+    private @Id @GeneratedValue int todo_id;
     private String name;
     private String description;
     private LocalDate deadline;
@@ -21,20 +17,20 @@ public class Todo {
     public Todo() {
     }
 
-    public Todo(Long id, String name, String description, LocalDate deadline, Boolean status) {
-        this.id = id;
+    public Todo(int id, String name, String description, LocalDate deadline, Boolean status) {
+        this.todo_id = id;
         this.name = name;
         this.description = description;
         this.deadline = deadline;
         this.status = status;
     }
 
-    public Long getId() {
-        return id;
+    public int getId() {
+        return todo_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(int id) {
+        this.todo_id = id;
     }
 
     public String getName() {

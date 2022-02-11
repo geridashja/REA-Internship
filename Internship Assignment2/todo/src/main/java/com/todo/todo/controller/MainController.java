@@ -35,7 +35,6 @@ public class MainController {
         List<todouser> users = userRepository.findAll();
         for (todouser other : users) {
             if (other.equals(user)) {
-                user.setLoggedIn(true);
 //                userRepository.save(user);
                 return "userhome";
             }
