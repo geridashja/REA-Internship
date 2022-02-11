@@ -5,13 +5,12 @@ import com.todo.todo.repository.todouserrepo;
 import com.todo.todo.todouser.status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
+
 
 @Controller
 public class MainController {
@@ -37,13 +36,25 @@ public class MainController {
         for (todouser other : users) {
             if (other.equals(user)) {
                 user.setLoggedIn(true);
-                userRepository.save(user);
-                return "index";
+//                userRepository.save(user);
+                return "userhome";
             }
         }
         return "failed";
     }
 
+    @GetMapping("/logout")
+    public String logUserOut( ) {
+//        List<todouser> users = userRepository.findAll();
+//        for (todouser other : users) {
+//            if (other.equals(user)) {
+//                user.setLoggedIn(false);
+//                userRepository.save(user);
+//                return "index";
+//            }
+//        }
+        return "index";
+    }
 //    @GetMapping("/registration")
 //    public String registration()
 //    {
