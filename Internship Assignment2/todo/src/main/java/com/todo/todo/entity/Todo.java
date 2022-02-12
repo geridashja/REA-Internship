@@ -1,36 +1,44 @@
 package com.todo.todo.entity;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.sql.Date;
+
 
 @Entity
 @Table(name = "todostable")
 public class Todo {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long todo_id;
 
-    private @Id @GeneratedValue int todo_id;
+
     private String name;
     private String description;
-    private LocalDate deadline;
+    private Date deadline;
     private Boolean status; //completed or not
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id")
+    private todouser user;
 
     public Todo() {
     }
 
-    public Todo(int id, String name, String description, LocalDate deadline, Boolean status) {
-        this.todo_id = id;
+    public Todo(String name, String description, Date deadline, Boolean status, todouser user) {
         this.name = name;
         this.description = description;
         this.deadline = deadline;
         this.status = status;
+        this.user = user;
     }
 
-    public int getId() {
+    public Long getTodo_id() {
         return todo_id;
     }
 
-    public void setId(int id) {
-        this.todo_id = id;
+    public void setTodo_id(Long todo_id) {
+        this.todo_id = todo_id;
     }
 
     public String getName() {
@@ -49,11 +57,11 @@ public class Todo {
         this.description = description;
     }
 
-    public LocalDate getDeadline() {
+    public Date getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(LocalDate deadline) {
+    public void setDeadline(Date deadline) {
         this.deadline = deadline;
     }
 
@@ -63,5 +71,13 @@ public class Todo {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public todouser getUser() {
+        return user;
+    }
+
+    public void setUser(todouser user) {
+        this.user = user;
     }
 }

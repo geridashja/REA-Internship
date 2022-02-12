@@ -5,9 +5,9 @@ import com.todo.todo.repository.todouserrepo;
 import com.todo.todo.todouser.status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -17,46 +17,50 @@ public class MainController {
     @Autowired
     todouserrepo userRepository;
 
+    //postmap testing purposes
     @GetMapping("/login")
     public String login() {
         return "login";
     }
 
     @GetMapping("/")
-    public String home()
-    {
+    public String home() {
         return "index";
     }
 
 
     @PostMapping("/login")
     public String loginUser(@Valid @ModelAttribute("todouser") todouser user) {
-//        List<todouser> users = userRepository.findByusername();
         List<todouser> users = userRepository.findAll();
         for (todouser other : users) {
             if (other.equals(user)) {
-//                userRepository.save(user);
+                todouser temp;
+                temp = other;
+                temp.setLoggedin(false);
+                userRepository.delete(other);
+                temp.setLoggedin(true);
+                userRepository.save(temp);
                 return "userhome";
             }
         }
-        return "failed";
+        return "redirect:/registration?failure";
     }
 
     @GetMapping("/logout")
-    public String logUserOut( ) {
-//        List<todouser> users = userRepository.findAll();
-//        for (todouser other : users) {
-//            if (other.equals(user)) {
-//                user.setLoggedIn(false);
-//                userRepository.save(user);
-//                return "index";
-//            }
-//        }
+    public String logUserOut() {
+        List<todouser> users = userRepository.findAll();
+        for (todouser other : users) {
+            if(other.isLoggedin() == true){
+
+//                todouser temp;
+//                temp = other;
+//                temp.setLoggedin(false);
+//                userRepository.delete(other);
+//                userRepository.save(temp);
+            }
+                other.setLoggedin(false);
+        }
         return "index";
     }
-//    @GetMapping("/registration")
-//    public String registration()
-//    {
-//        return "registration";
-//    }
+
 }

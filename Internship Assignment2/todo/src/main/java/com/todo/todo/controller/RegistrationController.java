@@ -17,13 +17,6 @@ public class RegistrationController {
     @Autowired
     todouserrepo userRepository;
 
-    //postmap testing purposes
-    @GetMapping("/merri")
-    public List<todouser> merri(){
-        List<todouser> users = userRepository.findAll();
-        return  users;
-    }
-
     @ModelAttribute("todouser")
     public todouser todouser()
     {

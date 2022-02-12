@@ -34,29 +34,39 @@
             class="text-danger" th:utext="${errorMessage}"></span>
     </h2>
 
+
+    <div class="col-sm-2">
+<!--        <button th:onclick="redirect:/login/add" class="btn btn-primary btn-block">Add Task</button>-->
+        <button type="button" th:onclick="|window.location.href='/login/add'|" class="btn btn-primary btn-block">Add Task</button>
+    </div>
+
+
 <!--    <div class="row">-->
 <!--        <div>-->
-<!--            <form autocomplete="off" action="#" th:action="@{/saveTask}"-->
-<!--                  th:object="${task}" method="post" class="form-vertical" role="form">-->
+<!--            <form autocomplete="off"-->
+<!--                  th:object="${todo}" method="post" class="form-vertical" role="form">-->
 <!--                <h2>Tasks Form</h2>-->
 <!--                <div class="form-group">-->
 <!--                    <div class="col-sm-7">-->
-<!--                        <label th:if="${#fields.hasErrors('description')}"-->
-<!--                               th:errors="*{description}" class="validation-message"></label> <input-->
+<!--                        <input-->
+<!--                            type="text" th:field="*{name}"-->
+<!--                            placeholder="Name" class="form-control" />-->
+<!--                    </div>-->
+<!--                    <div class="col-sm-7">-->
+<!--                        <input-->
 <!--                            type="text" th:field="*{description}"-->
 <!--                            placeholder="Task Description" class="form-control" />-->
 <!--                    </div>-->
 <!--                    <div class="col-sm-2">-->
-<!--                        <label th:if="${#fields.hasErrors('dueDate')}"-->
-<!--                               th:errors="*{dueDate}" class="validation-message"></label> <input-->
-<!--                            type="date" th:field="*{dueDate}" class="form-control" />-->
+<!--                        <input-->
+<!--                            type="date" th:field="*{deadline}" class="form-control" />-->
 <!--                    </div>-->
-<!--                    <div class="col-sm-1">-->
-<!--                        <label th:if="${#fields.hasErrors('priority')}"-->
-<!--                               th:errors="*{priority}" class="validation-message"></label> <input-->
-<!--                            type="number" th:field="*{priority}" min="0" max="5"-->
-<!--                            class="form-control" />-->
-<!--                    </div>-->
+<!--&lt;!&ndash;                    <div class="col-sm-1">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <label th:if="${#fields.hasErrors('priority')}"&ndash;&gt;-->
+<!--&lt;!&ndash;                               th:errors="*{priority}" class="validation-message"></label> <input&ndash;&gt;-->
+<!--&lt;!&ndash;                            type="number" th:field="*{priority}" min="0" max="5"&ndash;&gt;-->
+<!--&lt;!&ndash;                            class="form-control" />&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
 <!--                    <div class="col-sm-2">-->
 <!--                        <button type="submit" class="btn btn-primary btn-block">Include</button>-->
 <!--                    </div>-->
@@ -85,8 +95,13 @@
 <!--                    </tbody>-->
 <!--                </table>-->
 <!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+        </div>
+    </div>
+
+
+
+
+
 </div>
 </body>
 </html>
