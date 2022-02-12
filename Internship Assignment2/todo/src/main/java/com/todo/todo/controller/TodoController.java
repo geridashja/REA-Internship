@@ -3,6 +3,7 @@ package com.todo.todo.controller;
 import com.todo.todo.entity.Todo;
 import com.todo.todo.entity.todouser;
 import com.todo.todo.repository.TodoRepository;
+import com.todo.todo.repository.todouserrepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -13,10 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/login/add")
 public class TodoController {
+
+    @Autowired
+    todouserrepo userRepository;
+
     @Autowired
     private TodoRepository Todorepository;
 
@@ -39,12 +45,19 @@ public class TodoController {
     }
 
     @PostMapping()
-    public String registerUserAccount(@ModelAttribute("Todo") Todo todo, @ModelAttribute("todouser") todouser user)
+    public String registerUserAccount(@ModelAttribute("Todo") Todo todo)
     {
-//        todo.setuser_id((int)user.getId());
-
-        Todorepository.save(todo);
-        return "redirect:/userhome";
+        //finding user if the user is loggeid than thats the current user
+        List<todouser> users = userRepository.findAll();
+        for (todouser other : users) {
+            if(other.isLoggedin() == true){
+                todo.setUser(other);
+                Todorepository.save(todo);
+                return "/userhome";
+            }
+        }
+//        Todorepository.save(todo);
+        return "/userhome";
     }
 //    @RequestMapping("/")
 //    public String index(Todo todo) {
