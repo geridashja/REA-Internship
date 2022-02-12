@@ -34,12 +34,7 @@ public class MainController {
         List<todouser> users = userRepository.findAll();
         for (todouser other : users) {
             if (other.equals(user)) {
-                todouser temp;
-                temp = other;
-                temp.setLoggedin(false);
-                userRepository.delete(other);
-                temp.setLoggedin(true);
-                userRepository.save(temp);
+                userRepository.updateloggedin(true,other.getUser_id());
                 return "userhome";
             }
         }
@@ -51,12 +46,7 @@ public class MainController {
         List<todouser> users = userRepository.findAll();
         for (todouser other : users) {
             if(other.isLoggedin() == true){
-
-//                todouser temp;
-//                temp = other;
-//                temp.setLoggedin(false);
-//                userRepository.delete(other);
-//                userRepository.save(temp);
+                userRepository.updateloggedin(false,other.getUser_id());
             }
                 other.setLoggedin(false);
         }
