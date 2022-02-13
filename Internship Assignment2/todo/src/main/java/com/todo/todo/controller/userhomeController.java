@@ -3,6 +3,7 @@ package com.todo.todo.controller;
 import com.sun.security.auth.UserPrincipal;
 import com.todo.todo.entity.Todo;
 import com.todo.todo.entity.todouser;
+import com.todo.todo.repository.TodoRepository;
 import com.todo.todo.repository.todouserrepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -26,6 +27,13 @@ public class userhomeController {
     @Autowired
     todouserrepo userRepository;
 
+    @ModelAttribute("todos")
+    public List<Todo> sendtodos() {
+        return Todorepository.findAll();
+    }
+    @Autowired
+    private TodoRepository Todorepository;
+    
     @GetMapping()
     public String userhome() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

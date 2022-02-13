@@ -106,30 +106,30 @@
 
 
 
-<!--    <div class="container" th:fragment="content">-->
-<!--        <table class="table table-bordered table-striped">-->
-<!--            <thead>-->
-<!--            <tr>-->
-<!--                <th>Description</th>-->
-<!--                <th>Due Date</th>-->
-<!--                <th>Priority</th>-->
-<!--                <th>Delete</th>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!--            <tbody>-->
-<!--            <tr th:if="${todos.empty}">-->
-<!--                <td colspan="5">No Tasks</td>-->
-<!--            </tr>-->
-<!--            <tr th:each="todo : ${todos}">-->
-<!--                <td th:text="${todo.name}" />-->
-<!--                <td th:text="${todo.description}" />-->
-<!--                <td th:text="${todo.deadline}" />-->
-<!--                &lt;!&ndash;                        <td th:text="${task.priority}" />&ndash;&gt;-->
-<!--&lt;!&ndash;                <td><a th:href="@{'/deleteTask/' + ${task.id}}">Delete</a></td>&ndash;&gt;-->
-<!--            </tr>-->
-<!--            </tbody>-->
-<!--        </table>-->
-<!--    </div>-->
+    <div class="container" th:fragment="content">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Description</th>
+                <th>Due Date</th>
+                <th>Priority</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${todos.empty}">
+                <td colspan="5">No Tasks</td>
+            </tr>
+            <tr th:each="todo : ${todos}">
+                <td th:text="${todo.name}" />
+                <td th:text="${todo.description}" />
+                <td th:text="${todo.deadline}" />
+                <!--                        <td th:text="${task.priority}" />-->
+<!--                <td><a th:href="@{'/deleteTask/' + ${task.id}}">Delete</a></td>-->
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 
 
