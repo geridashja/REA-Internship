@@ -29,6 +29,13 @@ public class TodoController {
     @GetMapping
     public String showAddForm()
     {
+        List<todouser> users = userRepository.findAll();
+        for (todouser other : users) {
+            if(other.isLoggedin() == true){
+                todouser user2 = other;
+                return "userhomeadd";
+            }
+        }
         return "userhomeadd";
     }
 
@@ -47,17 +54,19 @@ public class TodoController {
     @PostMapping()
     public String registerUserAccount(@ModelAttribute("Todo") Todo todo)
     {
+
         //finding user if the user is loggeid than thats the current user
         List<todouser> users = userRepository.findAll();
         for (todouser other : users) {
             if(other.isLoggedin() == true){
+                todouser user2 = other;
                 todo.setUser(other);
                 Todorepository.save(todo);
-                return "/userhome";
+                return "userhome";
             }
         }
 //        Todorepository.save(todo);
-        return "/userhome";
+        return "userhome";
     }
 //    @RequestMapping("/")
 //    public String index(Todo todo) {

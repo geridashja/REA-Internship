@@ -19,7 +19,7 @@
     <div class="panel-group" style="margin-top: 40px;">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Welcome <span th:text="*{todouser.username}"></span>
+                Welcome <span th:text="*{user2.getName()}"></span>
 
                 <form th:action="@{/logout}" method="get" class="pull-right">
                     <button class="btn-floating btn-danger"

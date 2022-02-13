@@ -13,4 +13,9 @@ public interface todouserrepo extends JpaRepository<todouser, Long> {
     @Modifying
     @Query(value="update usertable set loggedin = ?1 where user_id = ?2",nativeQuery = true)
     int updateloggedin(boolean status, Long id);
+
+//    @Query(value="select e from usertable e where e.username = ?1",nativeQuery = true)
+//    todouser findbyusername(String username);
+    todouser findByUsername(String username);
+
 }

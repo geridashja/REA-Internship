@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:display="http://www.w3.org/1999/xhtml">
 <head>
     <title>Todo Tasks Page</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
@@ -19,7 +20,7 @@
     <div class="panel-group" style="margin-top: 40px;">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Welcome <span th:text="*{todouser.username}"></span>
+                Welcome <div sec:authorize="isAuthenticated()"><span valign="top" sec:authentication="name"></span></div>
 
                 <form th:action="@{/logout}" method="get" class="pull-right">
                     <button class="btn-floating btn-danger"
@@ -37,7 +38,12 @@
 
     <div class="col-sm-2">
 <!--        <button th:onclick="redirect:/login/add" class="btn btn-primary btn-block">Add Task</button>-->
-        <button type="button" th:onclick="|window.location.href='/login/add'|" class="btn btn-primary btn-block">Add Task</button>
+        <button type="button" th:onclick="|window.location.href='/login/add'|" class="btn btn-primary btn-block">Add Todo</button>
+    </div>
+
+    <div class="col-sm-2">
+        <!--        <button th:onclick="redirect:/login/add" class="btn btn-primary btn-block">Add Task</button>-->
+        <button type="button" th:onclick="|window.location.href='/alltasks'|" class="btn btn-primary btn-block">Show Todos</button>
     </div>
 
 
@@ -72,31 +78,59 @@
 <!--                    </div>-->
 <!--                </div>-->
 <!--            </form>-->
-<!--            <div class="container" th:fragment="content">-->
-<!--                <table class="table table-bordered table-striped">-->
-<!--                    <thead>-->
-<!--                    <tr>-->
-<!--                        <th>Description</th>-->
-<!--                        <th>Due Date</th>-->
-<!--                        <th>Priority</th>-->
-<!--                        <th>Delete</th>-->
-<!--                    </tr>-->
-<!--                    </thead>-->
-<!--                    <tbody>-->
-<!--                    <tr th:if="${tasks.empty}">-->
-<!--                        <td colspan="5">No Tasks</td>-->
-<!--                    </tr>-->
-<!--                    <tr th:each="task : ${tasks}">-->
-<!--                        <td th:text="${task.description}" />-->
-<!--                        <td th:text="${#dates.format(task.dueDate, 'yyyy-MM-dd')}" />-->
-<!--                        <td th:text="${task.priority}" />-->
-<!--                        <td><a th:href="@{'/deleteTask/' + ${task.id}}">Delete</a></td>-->
-<!--                    </tr>-->
-<!--                    </tbody>-->
-<!--                </table>-->
-<!--            </div>-->
-        </div>
-    </div>
+<!--&lt;!&ndash;            <div class="container" th:fragment="content">&ndash;&gt;-->
+<!--&lt;!&ndash;                <table class="table table-bordered table-striped">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <thead>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <th>Description</th>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <th>Due Date</th>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <th>Priority</th>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <th>Delete</th>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </thead>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <tbody>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <tr th:if="${tasks.empty}">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <td colspan="5">No Tasks</td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <tr th:each="task : ${tasks}">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <td th:text="${todo.name}" />&ndash;&gt;-->
+<!--&lt;!&ndash;                        <td th:text="${task.description}" />&ndash;&gt;-->
+<!--&lt;!&ndash;                        <td th:text="${todo.deadline}" />&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                        <td th:text="${task.priority}" />&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                        <td><a th:href="@{'/deleteTask/' + ${task.id}}">Delete</a></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </tbody>&ndash;&gt;-->
+<!--&lt;!&ndash;                </table>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--        </div>-->
+<!--    </div>-->
+
+
+
+<!--    <div class="container" th:fragment="content">-->
+<!--        <table class="table table-bordered table-striped">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th>Description</th>-->
+<!--                <th>Due Date</th>-->
+<!--                <th>Priority</th>-->
+<!--                <th>Delete</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr th:if="${todos.empty}">-->
+<!--                <td colspan="5">No Tasks</td>-->
+<!--            </tr>-->
+<!--            <tr th:each="todo : ${todos}">-->
+<!--                <td th:text="${todo.name}" />-->
+<!--                <td th:text="${todo.description}" />-->
+<!--                <td th:text="${todo.deadline}" />-->
+<!--                &lt;!&ndash;                        <td th:text="${task.priority}" />&ndash;&gt;-->
+<!--&lt;!&ndash;                <td><a th:href="@{'/deleteTask/' + ${task.id}}">Delete</a></td>&ndash;&gt;-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </div>-->
 
 
 
