@@ -19,8 +19,7 @@
     <div class="panel-group" style="margin-top: 40px;">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Welcome <span th:text="*{user2.getName()}"></span>
-
+                Welcome <div sec:authorize="isAuthenticated()"><span valign="top" sec:authentication="name"></span></div>
                 <form th:action="@{/logout}" method="get" class="pull-right">
                     <button class="btn-floating btn-danger"
                             type="Submit">Logout</button>

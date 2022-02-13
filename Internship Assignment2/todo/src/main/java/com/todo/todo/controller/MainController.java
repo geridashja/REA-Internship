@@ -1,11 +1,17 @@
 package com.todo.todo.controller;
 
+import com.sun.security.auth.UserPrincipal;
 import com.todo.todo.entity.Todo;
 import com.todo.todo.entity.todouser;
 import com.todo.todo.repository.TodoRepository;
 import com.todo.todo.repository.todouserrepo;
+import com.todo.todo.services.todouserService;
 import com.todo.todo.todouser.status;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +32,8 @@ public class MainController {
 
     //postmap testing purposes
     @GetMapping("/login")
-    public String login() {
+    public String login(@ModelAttribute("todouser") todouser user) {
+
         return "login";
     }
 
@@ -35,57 +42,17 @@ public class MainController {
         return "index";
     }
 
-
     @PostMapping("/login")
-    public String loginUser(@Valid @ModelAttribute("todouser") todouser user) {
-//        List<todouser> users = userRepository.findAll();
-//        for (todouser other : users) {
-//            if (other.equals(user)) {
-//                userRepository.updateloggedin(true,other.getUser_id());
-//                return "userhome";
-//            }
-//        }
+    public String loginUser( @ModelAttribute("todouser") todouser user) {
         return "login";
-//        return "redirect:/registration?failure";
     }
-
-
-//    @GetMapping("/userhome")
-//    public String userhome() {
-//        return "userhome";
-//    }
-//
-//    //userhome
-//    @ModelAttribute("todouser")
-//    public todouser todouser()
-//    {
-//        return new todouser();
-//    }
-//
-//    @PostMapping
-//    public String userhome(@ModelAttribute("todouser") Principal principal)
-//    {
-//        return principal.getName();
-//    }
 
     @GetMapping("/logout")
-    public String logUserOut() {
-        List<todouser> users = userRepository.findAll();
-        for (todouser other : users) {
-            if(other.isLoggedin() == true){
-                userRepository.updateloggedin(false,other.getUser_id());
-            }
-                other.setLoggedin(false);
-        }
+    public String logUserOut(@Valid @ModelAttribute("todouser") todouser user) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        userRepository.updateloggedin(false,userRepository.findByUsername(name).getUser_id());
         return "index";
-    }
-
-    @GetMapping("/alltasks")
-    public String getalltasks( RedirectAttributes attr){
-        List<Todo> todos = Todorepository.findAll();
-        attr.addFlashAttribute("todos",todos);
-        System.out.println(todos);
-        return "alltasks";
     }
 
 }

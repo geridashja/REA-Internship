@@ -6,6 +6,7 @@ import com.todo.todo.entity.todouser;
 import com.todo.todo.repository.todouserrepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,43 +26,15 @@ public class userhomeController {
     @Autowired
     todouserrepo userRepository;
 
-    //userhome
-//    @ModelAttribute("todouser")
-//    public String todouser(Principal principal) {
-//        return principal.getName();
-//    }
-//    {
-//        return principal.getName();
-//    }
-//    public UserDetails getCurrentUser(Authentication authentication) {
-//        return (authentication == null) ? null : (UserDetails) authentication.getPrincipal();
-//    }
-
-
     @GetMapping()
-    public String userhome(Principal principal) {
+    public String userhome() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
+        userRepository.updateloggedin(true,userRepository.findByUsername(name).getUser_id());
         return "userhome";
     }
 
 
-//    @PostMapping
-//    //@ModelAttribute("todouser")
-//    public String userhome( Principal principal)
-//    {
-//        return principal.getName();
-//    }
-
-//    @GetMapping("/logout")
-//    public String logUserOut() {
-//        List<todouser> users = userRepository.findAll();
-//        for (todouser other : users) {
-//            if(other.isLoggedin() == true){
-//                userRepository.updateloggedin(false,other.getUser_id());
-//            }
-//            other.setLoggedin(false);
-//        }
-//        return "index";
-//    }
 //
 //    @GetMapping("/alltasks")
 //    public String getalltasks( RedirectAttributes attr){

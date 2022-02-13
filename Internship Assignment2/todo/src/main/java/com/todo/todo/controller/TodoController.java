@@ -6,6 +6,8 @@ import com.todo.todo.repository.TodoRepository;
 import com.todo.todo.repository.todouserrepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,23 +30,16 @@ public class TodoController {
     private TodoRepository Todorepository;
 
     @GetMapping
-    public String showAddForm()
+    public String showAddForm(Principal principal)
     {
-        List<todouser> users = userRepository.findAll();
-        for (todouser other : users) {
-            if(other.isLoggedin() == true){
-                todouser user2 = other;
-                return "userhomeadd";
-            }
-        }
         return "userhomeadd";
     }
 
-    @ModelAttribute("todouser")
-    public todouser todouser()
-    {
-        return new todouser();
-    }
+//    @ModelAttribute("todouser")
+//    public todouser todouser()
+//    {
+//        return new todouser();
+//    }
 
     @ModelAttribute("Todo")
     public Todo Todo()
@@ -52,21 +48,21 @@ public class TodoController {
     }
 
     @PostMapping()
-    public String registerUserAccount(@ModelAttribute("Todo") Todo todo)
+    public String registerTodo(@ModelAttribute("Todo") Todo todo,Principal principal)
     {
-
-        //finding user if the user is loggeid than thats the current user
         List<todouser> users = userRepository.findAll();
         for (todouser other : users) {
-            if(other.isLoggedin() == true){
-                todouser user2 = other;
-                todo.setUser(other);
+            if(other.getUsername() == principal.getName()){
                 Todorepository.save(todo);
-                return "userhome";
+                return "redirect:/userhome";
             }
         }
 //        Todorepository.save(todo);
-        return "userhome";
+        return "redirect:/userhome";
+
+    }
+    public String currentUserName(Principal principal) {
+        return principal.getName();
     }
 //    @RequestMapping("/")
 //    public String index(Todo todo) {

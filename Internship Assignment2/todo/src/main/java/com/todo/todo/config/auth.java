@@ -39,6 +39,7 @@ public class auth extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin(form -> form
                         .defaultSuccessUrl("/userhome")
+                        .usernameParameter("username")
                         .loginPage("/login")
                         .failureUrl("/login?error")
                 )
@@ -46,16 +47,12 @@ public class auth extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/index");
         ;
     }
-//    @Bean
-//    public BCryptPasswordEncoder passwordEncoder() {
-//        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-//        return bCryptPasswordEncoder;
-//    }
+
     @Bean
     public DaoAuthenticationProvider authprovider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setPasswordEncoder(passwordEncoder);
         authenticationProvider.setUserDetailsService(todouserservice);
+        authenticationProvider.setPasswordEncoder(passwordEncoder);
         return authenticationProvider;
     }
 
@@ -64,7 +61,5 @@ public class auth extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authprovider());
     }
 
-    public String currentUserName(Principal principal) {
-        return principal.getName();
-    }
+
 }

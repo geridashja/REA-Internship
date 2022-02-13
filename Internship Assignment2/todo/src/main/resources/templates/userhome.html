@@ -21,7 +21,6 @@
         <div class="panel panel-primary">
             <div class="panel-heading">
                 Welcome <div sec:authorize="isAuthenticated()"><span valign="top" sec:authentication="name"></span></div>
-
                 <form th:action="@{/logout}" method="get" class="pull-right">
                     <button class="btn-floating btn-danger"
                             type="Submit">Logout</button>
