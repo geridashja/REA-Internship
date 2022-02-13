@@ -6,6 +6,7 @@ import com.todo.todo.repository.TodoRepository;
 import com.todo.todo.repository.todouserrepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -30,16 +31,11 @@ public class TodoController {
     private TodoRepository Todorepository;
 
     @GetMapping
-    public String showAddForm(Principal principal)
+    public String showAddForm()
     {
         return "userhomeadd";
     }
 
-//    @ModelAttribute("todouser")
-//    public todouser todouser()
-//    {
-//        return new todouser();
-//    }
 
     @ModelAttribute("Todo")
     public Todo Todo()
@@ -48,30 +44,15 @@ public class TodoController {
     }
 
     @PostMapping()
-    public String registerTodo(@ModelAttribute("Todo") Todo todo,Principal principal)
+    public String registerTodo(@ModelAttribute("Todo") Todo todo)
     {
-        List<todouser> users = userRepository.findAll();
-        for (todouser other : users) {
-            if(other.getUsername() == principal.getName()){
-                Todorepository.save(todo);
-                return "redirect:/userhome";
-            }
-        }
-//        Todorepository.save(todo);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        todo.setUser(userRepository.findByUsername(name));
+        Todorepository.save(todo);
         return "redirect:/userhome";
 
     }
-    public String currentUserName(Principal principal) {
-        return principal.getName();
-    }
-//    @RequestMapping("/")
-//    public String index(Todo todo) {
-//        ArrayList<Todo> todoList = (ArrayList<Todo>) repository.findAll();
-//        //model.addAttribute("items", todoList);
-////        model.addAttribute("newitem", new TodoItem());
-////        model.addAttribute("items", new TodoListViewModel(todoList));
-//        return "index";
-//    }
 
 //    @RequestMapping("/add")
 //    public String addTodo(@Valid @ModelAttribute("todo") Todo todo) {

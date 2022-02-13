@@ -50,7 +50,7 @@ public class MainController {
     @GetMapping("/logout")
     public String logUserOut(@Valid @ModelAttribute("todouser") todouser user) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName(); //get logged in username
+        String name = auth.getName();
         userRepository.updateloggedin(false,userRepository.findByUsername(name).getUser_id());
         return "index";
     }
