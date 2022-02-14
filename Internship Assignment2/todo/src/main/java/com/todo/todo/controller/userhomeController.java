@@ -5,6 +5,7 @@ import com.todo.todo.entity.Todo;
 import com.todo.todo.entity.todouser;
 import com.todo.todo.repository.TodoRepository;
 import com.todo.todo.repository.todouserrepo;
+import com.todo.todo.todouser.status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/userhome")
@@ -46,6 +48,18 @@ public class userhomeController {
         return "userhome";
     }
 
+    @ModelAttribute("todos")
+    @DeleteMapping("/delete/{id}")
+    public String deleteTodo(@PathVariable("id") Long id) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        todouser foruser = userRepository.findByUsername(name);
+        System.out.println(foruser.getUsername());
+//        Optional<Todo> todo2 = Todorepository.findById(id);
+//        Todo todo = todo2.get();
+//        Todorepository.deletetodo(todo.getTodo_id());
+        return "redirect:/userhome";
+    }
 
 //
 //    @GetMapping("/alltasks")

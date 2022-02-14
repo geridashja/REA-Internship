@@ -122,7 +122,11 @@
                 <td th:text="${todo.name}" />
                 <td th:text="${todo.description}" />
                 <td th:text="${todo.deadline}" />
+<!--                <td><a th:href="@{/delete}">Delete</a></td>-->
+                <td><a th:href="@{/delete/{id}(id=${todo.todo_id})}">Delete</a></td>
 <!--                <td><a th:href="@{'/deleteTask/' + ${task.id}}">Delete</a></td>-->
+<!--                <td><button class="btn btn-primary btn-block" type="button"-->
+<!--                            th:href="@{'/delete} >Delete Todo</button></td>-->
             </tr>
             </tbody>
         </table>
