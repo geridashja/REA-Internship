@@ -1,6 +1,7 @@
 package com.todo.todo.services;
 
 import com.sun.security.auth.UserPrincipal;
+import com.todo.todo.entity.Todo;
 import com.todo.todo.entity.todouser;
 import com.todo.todo.repository.todouserrepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,16 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class todouserService implements UserDetailsService {
 
     @Autowired
     todouserrepo userRepository;
+
+    @Autowired
+    todouserrepo TodoRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
@@ -36,6 +42,7 @@ public class todouserService implements UserDetailsService {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder;
     }
+
 
     private UserPrincipal getLoggedInUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

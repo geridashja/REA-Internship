@@ -40,10 +40,10 @@
         <button type="button" th:onclick="|window.location.href='/login/add'|" class="btn btn-primary btn-block">Add Todo</button>
     </div>
 
-    <div class="col-sm-2">
-        <!--        <button th:onclick="redirect:/login/add" class="btn btn-primary btn-block">Add Task</button>-->
-        <button type="button" th:onclick="|window.location.href='/alltasks'|" class="btn btn-primary btn-block">Show Todos</button>
-    </div>
+<!--    <div class="col-sm-2">-->
+<!--        &lt;!&ndash;        <button th:onclick="redirect:/login/add" class="btn btn-primary btn-block">Add Task</button>&ndash;&gt;-->
+<!--        <button type="button" th:onclick="|window.location.href='/alltasks'|" class="btn btn-primary btn-block">Show Todos</button>-->
+<!--    </div>-->
 
 
 <!--    <div class="row">-->
@@ -104,15 +104,13 @@
 <!--        </div>-->
 <!--    </div>-->
 
-
-
     <div class="container" th:fragment="content">
         <table class="table table-bordered table-striped">
             <thead>
             <tr>
+                <th>Name</th>
                 <th>Description</th>
-                <th>Due Date</th>
-                <th>Priority</th>
+                <th>Deadline</th>
                 <th>Delete</th>
             </tr>
             </thead>
@@ -124,7 +122,6 @@
                 <td th:text="${todo.name}" />
                 <td th:text="${todo.description}" />
                 <td th:text="${todo.deadline}" />
-                <!--                        <td th:text="${task.priority}" />-->
 <!--                <td><a th:href="@{'/deleteTask/' + ${task.id}}">Delete</a></td>-->
             </tr>
             </tbody>

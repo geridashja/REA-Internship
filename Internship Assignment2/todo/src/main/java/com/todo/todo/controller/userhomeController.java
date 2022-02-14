@@ -27,13 +27,17 @@ public class userhomeController {
     @Autowired
     todouserrepo userRepository;
 
-    @ModelAttribute("todos")
-    public List<Todo> sendtodos() {
-        return Todorepository.findAll();
-    }
     @Autowired
     private TodoRepository Todorepository;
-    
+
+    @ModelAttribute("todos")
+    public List<Todo> sendtodos() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        todouser foruser = userRepository.findByUsername(name);
+        return Todorepository.todos_foruser(foruser.getUser_id());
+    }
+
     @GetMapping()
     public String userhome() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

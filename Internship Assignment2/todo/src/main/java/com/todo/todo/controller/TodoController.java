@@ -5,6 +5,7 @@ import com.todo.todo.entity.todouser;
 import com.todo.todo.repository.TodoRepository;
 import com.todo.todo.repository.todouserrepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -53,14 +54,6 @@ public class TodoController {
         return "redirect:/userhome";
 
     }
-
-
-//    @RequestMapping("/add")
-//    public String addTodo(@Valid @ModelAttribute("todo") Todo todo) {
-//        TodoItem item = new TodoItem(requestItem.getCategory(), requestItem.getName());
-//        repository.save(item);
-//        return "redirect:/";
-//    }
 
 //    @RequestMapping("/update")
 //    public String updateTodo(@ModelAttribute TodoListViewModel requestItems) {
