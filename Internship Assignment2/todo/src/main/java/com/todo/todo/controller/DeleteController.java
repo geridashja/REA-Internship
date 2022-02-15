@@ -1,6 +1,5 @@
 package com.todo.todo.controller;
 
-import com.sun.security.auth.UserPrincipal;
 import com.todo.todo.entity.Todo;
 import com.todo.todo.entity.todouser;
 import com.todo.todo.repository.TodoRepository;
@@ -22,10 +21,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/userhome")
-public class userhomeController {
-
-
+@RequestMapping("userhome/delete/{}")
+public class DeleteController {
     @Autowired
     todouserrepo userRepository;
 
@@ -41,23 +38,15 @@ public class userhomeController {
     }
 
     @GetMapping()
-    public String userhome() {
+    public String deleteTodo(@ModelAttribute("todos") Todo todo){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName(); //get logged in username
-        userRepository.updateloggedin(true,userRepository.findByUsername(name).getUser_id());
-        return "userhome";
+        String name = auth.getName();
+        todouser foruser = userRepository.findByUsername(name);
+        System.out.println(foruser.getUsername());
+
+        Optional<Todo> todo2 = Todorepository.findById(todo.getTodo_id());
+        Todo todo3 = todo2.get();
+        Todorepository.delete(todo3);
+        return "redirect:/userhome";
     }
-
-
-//
-//    @GetMapping("/alltasks")
-//    public String getalltasks( RedirectAttributes attr){
-//        List<Todo> todos = Todorepository.findAll();
-//        attr.addFlashAttribute("todos",todos);
-//        System.out.println(todos);
-//        return "alltasks";
-//    }
-
 }
-
-

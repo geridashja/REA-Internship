@@ -19,8 +19,6 @@ public interface TodoRepository extends JpaRepository<Todo, Long> {
     List<Todo> todos_foruser(Long user_id);
 
 
-    @Query(value="delete t from todostable t join usertable u on t.todo_id =?1",nativeQuery = true)
-    void deletetodo(Long table_id);
 
 
 }
