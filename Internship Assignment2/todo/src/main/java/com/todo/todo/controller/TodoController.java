@@ -32,37 +32,24 @@ public class TodoController {
     private TodoRepository Todorepository;
 
     @GetMapping
-    public String showAddForm()
-    {
+    public String showAddForm() {
         return "userhomeadd";
     }
 
 
     @ModelAttribute("Todo")
-    public Todo Todo()
-    {
+    public Todo Todo() {
         return new Todo();
     }
 
     @PostMapping()
-    public String registerTodo(@ModelAttribute("Todo") Todo todo)
-    {
+    public String registerTodo(@ModelAttribute("Todo") Todo todo) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
         todo.setUser(userRepository.findByUsername(name));
+        todo.setStatus(false);
         Todorepository.save(todo);
         return "redirect:/userhome";
 
     }
-
-//    @RequestMapping("/update")
-//    public String updateTodo(@ModelAttribute TodoListViewModel requestItems) {
-//        for (TodoItem requestItem : requestItems.getTodoList() ) {
-//            TodoItem item = new TodoItem(requestItem.getCategory(), requestItem.getName());
-//            item.setComplete(requestItem.isComplete());
-//            item.setId(requestItem.getId());
-//            repository.save(item);
-//        }
-//        return "redirect:/";
-//    }
 }

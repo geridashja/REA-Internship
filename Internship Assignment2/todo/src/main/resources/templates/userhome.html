@@ -111,17 +111,24 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Deadline</th>
-                <th>Delete Todo</th>
+                <th>Status</th>
+                <th>Delete</th>
             </tr>
             </thead>
             <tbody>
             <tr th:if="${todos.empty}">
-                <td colspan="5">No Tasks</td>
+                <td colspan="5">No Todos</td>
             </tr>
             <tr th:each="todo : ${todos}">
                 <td th:text="${todo.name}" />
                 <td th:text="${todo.description}" />
                 <td th:text="${todo.deadline}" />
+                <td>
+                    <a th:href="@{'userhome/completed/' + ${todo.todo_id}}">Mark as Completed</a>
+                </td>
+<!--                <td th:if="${todo.status} == true">-->
+<!--                    <a th:href="@{'userhome/completed/' + ${todo.todo_id}}">Completed</a>-->
+<!--                </td>-->
                 <td><a th:href="@{'userhome/delete/' + ${todo.todo_id}}">Delete</a></td>
             </tr>
             </tbody>

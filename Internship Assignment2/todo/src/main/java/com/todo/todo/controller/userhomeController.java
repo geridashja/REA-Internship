@@ -25,7 +25,6 @@ import java.util.Optional;
 @RequestMapping("/userhome")
 public class userhomeController {
 
-
     @Autowired
     todouserrepo userRepository;
 
@@ -43,21 +42,10 @@ public class userhomeController {
     @GetMapping()
     public String userhome() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName(); //get logged in username
-        userRepository.updateloggedin(true,userRepository.findByUsername(name).getUser_id());
+        String name = auth.getName();
+        userRepository.updateloggedin(true, userRepository.findByUsername(name).getUser_id());
         return "userhome";
     }
-
-
-//
-//    @GetMapping("/alltasks")
-//    public String getalltasks( RedirectAttributes attr){
-//        List<Todo> todos = Todorepository.findAll();
-//        attr.addFlashAttribute("todos",todos);
-//        System.out.println(todos);
-//        return "alltasks";
-//    }
-
 }
 
 
