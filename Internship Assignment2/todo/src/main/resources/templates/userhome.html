@@ -123,12 +123,13 @@
                 <td th:text="${todo.name}" />
                 <td th:text="${todo.description}" />
                 <td th:text="${todo.deadline}" />
-                <td>
-                    <a th:href="@{'userhome/completed/' + ${todo.todo_id}}">Mark as Completed</a>
+                <td th:if="${todo.status} == true">
+                    <a th:href="@{'userhome/completed/' + ${todo.todo_id}}">Completed</a>
                 </td>
-<!--                <td th:if="${todo.status} == true">-->
-<!--                    <a th:href="@{'userhome/completed/' + ${todo.todo_id}}">Completed</a>-->
-<!--                </td>-->
+                <td th:if="${todo.status} == false">
+                        <a th:href="@{'userhome/completed/' + ${todo.todo_id}}">Mark as Completed</a>
+                </td>
+
                 <td><a th:href="@{'userhome/delete/' + ${todo.todo_id}}">Delete</a></td>
             </tr>
             </tbody>
