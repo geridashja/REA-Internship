@@ -20,9 +20,9 @@
     <div class="panel-group" style="margin-top: 40px;">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Welcome <div sec:authorize="isAuthenticated()"><span valign="top" sec:authentication="name"></span></div>
+                Welcome <span  display:inline sec:authorize="isAuthenticated()" sec:authentication="name"></span>
                 <form th:action="@{/logout}" method="get" class="pull-right">
-                    <button class="btn-floating btn-danger"
+                    <button display:inline class="btn-floating btn-danger"
                             type="Submit">Logout</button>
                 </form>
             </div>
@@ -36,73 +36,16 @@
 
 
     <div class="col-sm-2">
-<!--        <button th:onclick="redirect:/login/add" class="btn btn-primary btn-block">Add Task</button>-->
         <button type="button" th:onclick="|window.location.href='/login/add'|" class="btn btn-primary btn-block">Add Todo</button>
     </div>
+    <div class="col-sm-13">
+        <form th:action="@{/userhome}" th:object="${Todo}" method="post">
+            <div class="col-sm-2">
+                <button type="submit" class="btn btn-primary btn-block">Delete All Todo-s</button>
+            </div>
+        </form>
+    </div>
 
-<!--    <div class="col-sm-2">-->
-<!--        &lt;!&ndash;        <button th:onclick="redirect:/login/add" class="btn btn-primary btn-block">Add Task</button>&ndash;&gt;-->
-<!--        <button type="button" th:onclick="|window.location.href='/alltasks'|" class="btn btn-primary btn-block">Show Todos</button>-->
-<!--    </div>-->
-
-
-<!--    <div class="row">-->
-<!--        <div>-->
-<!--            <form autocomplete="off"-->
-<!--                  th:object="${todo}" method="post" class="form-vertical" role="form">-->
-<!--                <h2>Tasks Form</h2>-->
-<!--                <div class="form-group">-->
-<!--                    <div class="col-sm-7">-->
-<!--                        <input-->
-<!--                            type="text" th:field="*{name}"-->
-<!--                            placeholder="Name" class="form-control" />-->
-<!--                    </div>-->
-<!--                    <div class="col-sm-7">-->
-<!--                        <input-->
-<!--                            type="text" th:field="*{description}"-->
-<!--                            placeholder="Task Description" class="form-control" />-->
-<!--                    </div>-->
-<!--                    <div class="col-sm-2">-->
-<!--                        <input-->
-<!--                            type="date" th:field="*{deadline}" class="form-control" />-->
-<!--                    </div>-->
-<!--&lt;!&ndash;                    <div class="col-sm-1">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <label th:if="${#fields.hasErrors('priority')}"&ndash;&gt;-->
-<!--&lt;!&ndash;                               th:errors="*{priority}" class="validation-message"></label> <input&ndash;&gt;-->
-<!--&lt;!&ndash;                            type="number" th:field="*{priority}" min="0" max="5"&ndash;&gt;-->
-<!--&lt;!&ndash;                            class="form-control" />&ndash;&gt;-->
-<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
-<!--                    <div class="col-sm-2">-->
-<!--                        <button type="submit" class="btn btn-primary btn-block">Include</button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </form>-->
-<!--&lt;!&ndash;            <div class="container" th:fragment="content">&ndash;&gt;-->
-<!--&lt;!&ndash;                <table class="table table-bordered table-striped">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <thead>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <tr>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <th>Description</th>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <th>Due Date</th>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <th>Priority</th>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <th>Delete</th>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </tr>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </thead>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <tbody>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <tr th:if="${tasks.empty}">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <td colspan="5">No Tasks</td>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </tr>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <tr th:each="task : ${tasks}">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <td th:text="${todo.name}" />&ndash;&gt;-->
-<!--&lt;!&ndash;                        <td th:text="${task.description}" />&ndash;&gt;-->
-<!--&lt;!&ndash;                        <td th:text="${todo.deadline}" />&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                        <td th:text="${task.priority}" />&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;                        <td><a th:href="@{'/deleteTask/' + ${task.id}}">Delete</a></td>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </tr>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </tbody>&ndash;&gt;-->
-<!--&lt;!&ndash;                </table>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-<!--        </div>-->
-<!--    </div>-->
 
     <div class="container" th:fragment="content">
         <table class="table table-bordered table-striped">

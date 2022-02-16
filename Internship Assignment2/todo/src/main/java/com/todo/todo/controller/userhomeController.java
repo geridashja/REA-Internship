@@ -46,6 +46,13 @@ public class userhomeController {
         userRepository.updateloggedin(true, userRepository.findByUsername(name).getUser_id());
         return "userhome";
     }
+
+    @PostMapping()
+    public String deletealltodos(@ModelAttribute("todos") Todo todo){
+        System.out.println("GERI");
+        Todorepository.deleteAll();
+        return "redirect:/userhome";
+    }
 }
 
 
