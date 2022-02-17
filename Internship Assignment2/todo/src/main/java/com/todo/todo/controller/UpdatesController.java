@@ -5,7 +5,6 @@ import com.todo.todo.entity.Todo;
 import com.todo.todo.entity.todouser;
 import com.todo.todo.repository.TodoRepository;
 import com.todo.todo.repository.todouserrepo;
-import com.todo.todo.todouser.status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

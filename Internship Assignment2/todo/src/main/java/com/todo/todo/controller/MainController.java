@@ -1,25 +1,14 @@
 package com.todo.todo.controller;
 
-import com.sun.security.auth.UserPrincipal;
-import com.todo.todo.entity.Todo;
 import com.todo.todo.entity.todouser;
 import com.todo.todo.repository.TodoRepository;
 import com.todo.todo.repository.todouserrepo;
-import com.todo.todo.services.todouserService;
-import com.todo.todo.todouser.status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import javax.validation.Valid;
-import java.security.Principal;
-import java.util.List;
 
 
 @Controller

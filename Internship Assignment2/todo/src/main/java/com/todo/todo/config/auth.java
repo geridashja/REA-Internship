@@ -33,7 +33,7 @@ public class auth extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()
-                .antMatchers("/login", "/register","/delete/*")
+                .antMatchers("/login", "/register","/delete/*","/css/**")
                 .permitAll()
                 .antMatchers("/user/**").hasAuthority("todouser")
                 .and()
