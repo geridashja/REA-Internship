@@ -29,4 +29,6 @@ In the todo directory:
 ```
 ./mvnw package
 java -jar target/*.jar
+
 ```
+Then , open a web browser to http://localhost:8080
