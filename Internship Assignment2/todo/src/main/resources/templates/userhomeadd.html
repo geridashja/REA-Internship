@@ -31,14 +31,6 @@
         <span class="text-success" th:utext="${successMessage}"></span> <span
             class="text-danger" th:utext="${errorMessage}"></span>
     </h2>
-
-
-<!--    <div class="col-sm-2">-->
-<!--        &lt;!&ndash;        <button th:onclick="redirect:/login/add" class="btn btn-primary btn-block">Add Task</button>&ndash;&gt;-->
-<!--        <button type="button" th:onclick="|window.location.href='/login/add'|" class="btn btn-primary btn-block">Add Task</button>-->
-<!--    </div>-->
-
-
         <div class="row">
             <div>
                 <form autocomplete="off" th:action="@{/login/add}"
@@ -59,47 +51,13 @@
                             <input
                                 type="date"  th:field="*{deadline}" class="form-control" />
                         </div>
-    <!--                    <div class="col-sm-1">-->
-    <!--                        <label th:if="${#fields.hasErrors('priority')}"-->
-    <!--                               th:errors="*{priority}" class="validation-message"></label> <input-->
-    <!--                            type="number" th:field="*{priority}" min="0" max="5"-->
-    <!--                            class="form-control" />-->
-    <!--                    </div>-->
                         <div class="col-sm-2">
                             <button type="submit" class="btn btn-primary btn-block">ADD TASK</button>
                         </div>
                     </div>
                 </form>
-<!--                <div class="container" th:fragment="content">-->
-<!--                    <table class="table table-bordered table-striped">-->
-<!--                        <thead>-->
-<!--                        <tr>-->
-<!--                            <th>Description</th>-->
-<!--                            <th>Due Date</th>-->
-<!--                            <th>Priority</th>-->
-<!--                            <th>Delete</th>-->
-<!--                        </tr>-->
-<!--                        </thead>-->
-<!--                        <tbody>-->
-<!--                        <tr th:if="${tasks.empty}">-->
-<!--                            <td colspan="5">No Tasks</td>-->
-<!--                        </tr>-->
-<!--                        <tr th:each="task : ${tasks}">-->
-<!--                            <td th:text="${task.description}" />-->
-<!--                            <td th:text="${#dates.format(task.dueDate, 'yyyy-MM-dd')}" />-->
-<!--                            <td th:text="${task.priority}" />-->
-<!--                            <td><a th:href="@{'/deleteTask/' + ${task.id}}">Delete</a></td>-->
-<!--                        </tr>-->
-<!--                        </tbody>-->
-<!--                    </table>-->
-<!--                </div>-->
 </div>
 </div>
-
-
-
-
-
 </div>
 </body>
 </html>

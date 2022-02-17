@@ -9,8 +9,6 @@
 	crossorigin="anonymous">
 </head>
 <body>
-
-	<!-- create navigation bar ( header) -->
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -28,12 +26,10 @@
 	
 <br>
 <br>
-	<!-- Create HTML registration form -->
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 
-				<!-- success message -->
 				<div th:if="${param.success}">
 					<div class="alert alert-info">You've successfully registered</div>
 				</div>
@@ -47,13 +43,6 @@
 						<input id="firstName" class="form-control" th:field="*{username}"
 							required autofocus="autofocus" />
 					</div>
-<!--					-->
-<!--					<div class="form-group">-->
-<!--						<label class="control-label" for="email"> Email </label>-->
-<!--						<input id="email" class="form-control" th:field="*{email}"-->
-<!--							required autofocus="autofocus" />-->
-<!--					</div>-->
-
 					<div class="form-group">
 						<label class="control-label"> Password </label>
 						<input id="password" type="password" class="form-control" th:field="*{password}"
