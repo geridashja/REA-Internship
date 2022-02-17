@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <title>Todo Tasks Page</title>
+    <title>Add ToDo</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/css/validation.css}" />
     <link rel="stylesheet"
@@ -15,13 +15,12 @@
 
 <body>
 <div class="container">
-
     <div class="panel-group" style="margin-top: 40px;">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Welcome <div sec:authorize="isAuthenticated()"><span valign="top" sec:authentication="name"></span></div>
+                Welcome <span  sec:authorize="isAuthenticated()" sec:authentication="name"></span>
                 <form th:action="@{/logout}" method="get" class="pull-right">
-                    <button class="btn-floating btn-danger"
+                    <button  class="btn-floating btn-danger"
                             type="Submit">Logout</button>
                 </form>
             </div>
